@@ -1,0 +1,169 @@
+<!-- 1. Start of HTML Bot File -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="a5Rqp_LYJYAwOMhDXbuvQ7KgM61VOIJvYhpVtq7THrE" />
+  <title>Smart App AI Bot</title>
+  <style>
+    body { font-family: Arial; background-color: #e9ebee; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
+    .chat-container { width: 420px; background: white; box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 10px; display: flex; flex-direction: column; height: 600px; overflow: hidden; }
+    .chat-header { background-color: #075e54; color: white; padding: 16px; text-align: center; font-weight: bold; font-size: 20px; }
+    .chat-box { flex: 1; overflow-y: auto; padding: 15px; }
+    .message { padding: 10px 14px; margin: 6px 0; border-radius: 10px; max-width: 80%; word-wrap: break-word; }
+    .user { background-color: #dcf8c6; margin-left: auto; text-align: right; }
+    .bot { background-color: #f1f0f0; margin-right: auto; text-align: left; }
+    .chat-input { display: flex; border-top: 1px solid #ccc; }
+    .chat-input input { flex: 1; padding: 12px; border: none; font-size: 16px; outline: none; }
+    .chat-input button { background-color: #128c7e; color: white; border: none; padding: 12px 16px; cursor: pointer; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">📱 AppSmart AI Bot</div>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Tamaro prashna lakh..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const qa = {
+      "hii":"hu tamari su madad kari saku.",
+      "whatsapp su chhe": "WhatsApp ek messaging app chhe je end-to-end encrypted chat support kare chhe.",
+      "whatsapp kone banavyo": "Brian Acton ane Jan Koum e WhatsApp 2009 ma banavyo.",
+      "whatsapp na features su chhe": "Chat, status, voice/video call, group, media sharing, sticker, channel, community, poll vagere.",
+      "whatsapp group limit ketli chhe": "WhatsApp group ma 1024 members sudhi add kari sako.",
+      "whatsapp channel su chhe": "Channel thi tame broadcast updates lakh sako jema followers tamne joi shake chhe.",
+      "whatsapp ma status ketla second chhe": "Status 30 second no hoy ane 24 hours ma delete thai jaye.",
+      "whatsapp ma typing status kyare dekhaay chhe": "Tame typing karo tyare front user ne 'typing…' dekhaay chhe.",
+      "whatsapp ma blue tick su chhe": "Blue tick etle message read (vanchay gayu) chhe.",
+      "whatsapp ma last seen su chhe": "Tame last kyare online hata e batave.",
+      "whatsapp ma message delete kari sakay chhe?": "Ha, 1 ghanta ma delete for everyone kari sako.",
+
+      "instagram su chhe": "Instagram ek photo/video sharing social media app chhe.",
+      "instagram story su chhe": "Story 24 hours ma delete thai chhe ane photo/video muki sako.",
+      "instagram reel su chhe": "Short 15-90 sec video format je viral content mate use thay chhe.",
+      "instagram follower su chhe": "Follower etle loko je tamara content follow kare chhe.",
+      "instagram dm su chhe": "Direct Message — private chat feature chhe.",
+      "instagram blue tick su chhe": "Blue tick verified account mate hoy chhe.",
+      "instagram account private karvu chhe": "Profile > Settings > Privacy > Account Privacy > Private enable karo.",
+      "instagram ma music kyare na male": "Music geo-restricted chhe, kai country ma available nathi.",
+      "instagram reel viral kem thay": "Trending audio, hashtags, timing, and engagement thi reel viral thay chhe.",
+      "instagram story highlight su chhe": "Stories ne permanently profile par save karva mate highlight hoy chhe.",
+
+      "twitter su chhe": "Twitter ek microblogging app chhe jema tame short thoughts share kari sako.",
+      "twitter x kem thayu": "Twitter nu naam Elon Musk e X karavi didhu 2023 ma.",
+      "twitter blue tick su chhe": "Paid verification chhe Elon Musk ni policy pachi.",
+      "twitter ma 280 words limit chhe?": "Ha, normal user mate 280 character limit chhe.",
+      "twitter trend su chhe": "Trending topic etle jeni upar loko vadhu tweet kare.",
+      "twitter space su chhe": "Live audio session jema loko joi shake ane boli shake.",
+      "twitter dm su chhe": "Private message system.",
+      "twitter follower su chhe": "Tamne je follow kare e follower chhe.",
+      "twitter ma image kem upload nathi thati": "Try karjo network stable chhe ke nai.",
+      "twitter verified kon thay": "Blue tick pay karine verified thay.",
+
+      "youtube su chhe": "YouTube ek video sharing platform chhe.",
+      "youtube channel su chhe": "Tamaro khud no content upload karva mate no account.",
+      "youtube shorts su chhe": "Short form vertical videos, max 60 sec.",
+      "youtube ma subscriber su chhe": "Je tamaro channel follow kare e subscriber.",
+      "youtube ma monetization kyare male": "1000 subscribers ane 4000 watch hours pachi.",
+      "youtube copyright strike su chhe": "Bijani video/sound use karva thi copyright strike male.",
+      "youtube live su chhe": "Live video stream tamara viewers sathe.",
+      "youtube trending video su chhe": "Vadhu watched ane shared video trending ma aave.",
+      "youtube button ketla chhe": "Silver (100K), Gold (1M), Diamond (10M), Ruby (50M), Red Diamond (100M).",
+      "youtube dislike kyare remove thayu": "Dislike count 2021 pachi public thi remove thay gayu.",
+
+      "ai su chhe": "AI etle Artificial Intelligence — smart machine jeni pass decision power chhe.",
+      "chatgpt su chhe": "ChatGPT OpenAI no AI model chhe je tamara prashna no jawab aape.",
+      "ai future su chhe": "AI future smart automation, education, health, ane business ne revolution laavse.",
+      "robot su chhe": "Robot mechanical device chhe je AI thi operate thay shake chhe.",
+      "machine learning su chhe": "Machine learning e AI nu part chhe jema machine example mathi sikhvay chhe.",
+      "deep learning su chhe": "Deep learning e neural network mathi operate thay chhe.",
+      "openai su chhe": "OpenAI ek research company chhe jeni pase ChatGPT, DALL·E, Codex chhe.",
+      "voice bot su chhe": "Voice recognition thi operate thato bot.",
+      "ai dangerous chhe?": "Proper use ma AI safe chhe, misuse thi problem thai shake chhe.",
+      "ai ma career chhe?": "Ha! AI ma huge future career scope chhe.",
+
+      "facebook su chhe": "Facebook ek social networking app chhe.",
+      "facebook friend su chhe": "Je tamne add kare ke tamara friend request accept kare.",
+      "facebook story su chhe": "24 hour ni visible photo/video like Instagram.",
+      "facebook page su chhe": "Business ke public personality mate page create thay chhe.",
+      "facebook group su chhe": "Lokoni community jema common topic discuss thay chhe.",
+      "facebook live su chhe": "Real-time streaming for your followers.",
+      "facebook ma meta su chhe": "Facebook company nu parent company name Meta chhe.",
+      "facebook ma account delete kem karvu": "Settings > Account > Deactivation or Delete.",
+      "facebook blue tick su chhe": "Verified public profile mate hoy chhe.",
+      "facebook friend limit su chhe": "Friends limit: 5000.",
+
+      "snapchat su chhe": "Snapchat ek instant photo/video chat app chhe je auto delete thay chhe.",
+      "snapchat streak su chhe": "Daily snap exchange streak ganye chhe.",
+      "snapchat score su chhe": "Tame jetla snap send/receive karo te no total score.",
+      "snapchat lens su chhe": "Snapchat filters ne lens kehvay chhe.",
+      "snapchat map su chhe": "Snapchat par friends na location joy shake chho live.",
+      "snapchat story su chhe": "Story 24 hrs mate live rahe chhe.",
+      "snapchat filter kyathi lavvu": "Explore filters option ma thi lens select karo.",
+      "snapchat verified user su chhe": "Popular public figures ne verified badge male chhe.",
+      "snapchat bitmoji su chhe": "Tamaru cartoon avatar je profile pic banay chhe.",
+      "snapchat chat screenshot su chhe": "Tame screenshot lo to saamena user ne notification male chhe."
+    };
+
+    function sendMessage() {
+      const input = document.getElementById("user-input");
+      const msg = input.value.trim().toLowerCase();
+      if (!msg) return;
+
+      addMessage("user", msg);
+      input.value = "";
+
+      let response = "Maaf karo, aa sawal samjato nathi. Please try any popular app-related question.";
+
+      for (let key in qa) {
+        if (msg.includes(key)) {
+          response = qa[key];
+          break;
+        }
+      }
+
+      setTimeout(() => addMessage("bot", response), 500);
+    }
+
+    function addMessage(sender, text) {
+      const box = document.getElementById("chat-box");
+      const div = document.createElement("div");
+      div.className = `message ${sender}`;
+      div.innerText = text;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+    
+package com.smartbot.app;
+
+import android.os.Bundle;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+    WebView myBot;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        myBot = new WebView(this);
+        myBot.getSettings().setJavaScriptEnabled(true);
+        myBot.setWebViewClient(new WebViewClient());
+
+        myBot.loadUrl("file:///android_asset/bot.html");
+        setContentView(myBot);
+    }
+}
+
+  </script>
+  
+</body>
+</html>
+<!-- 1. End of HTML Bot File -->
+
